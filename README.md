@@ -75,3 +75,88 @@ Microsoft offers comprehensive resources to help you get started with AL develop
 * **Test thoroughly:** Test your code thoroughly in a sandbox environment before deploying it to production. This will help you catch errors early on and avoid disruptions to your business operations.
 * **Keep up-to-date:** Business Central is constantly evolving, so make sure to stay updated on the latest features and best practices by following Microsoft's documentation and community resources.
 
+## Introduction to AL Programming
+
+AL (Application Language) is the programming language used to develop extensions and customizations for Microsoft Dynamics 365 Business Central. It replaces the older C/AL (Client/Server Application Language) used in previous versions of Dynamics NAV. AL is designed to be more modern, cloud-friendly, and aligned with current development practices.
+
+### Key Features of AL
+
+1. **Object-oriented:** AL supports object-oriented programming concepts, allowing for more structured and reusable code.
+
+2. **Event-driven:** AL uses an event-driven architecture, making it easier to extend existing functionality without modifying the base application.
+
+3. **Integration with Visual Studio Code:** AL development is primarily done using Visual Studio Code, providing a modern and familiar development environment.
+
+4. **IntelliSense support:** AL offers rich IntelliSense capabilities, improving developer productivity and reducing errors.
+
+5. **Built-in data types:** AL includes data types specifically designed for business applications, such as Decimal, Date, and Code.
+
+### AL Objects
+
+AL uses various object types to define the structure and behavior of Business Central extensions:
+
+1. **Table:** Defines the structure of data storage.
+2. **Page:** Creates the user interface for viewing and editing data.
+3. **Report:** Generates formatted output of data for printing or analysis.
+4. **Codeunit:** Contains functions and procedures for business logic.
+5. **Query:** Defines complex data retrieval operations.
+6. **XMLPort:** Handles data import and export in XML format.
+7. **Enum:** Defines a list of named constants.
+8. **PermissionSet:** Specifies sets of permissions for security management.
+
+### Basic AL Syntax
+
+Here's a simple example of AL code that defines a table extension:
+
+```al
+tableextension 50100 CustomerTableExt extends Customer
+{
+    fields
+    {
+        field(50100; "Loyalty Points"; Integer)
+        {
+            Caption = 'Loyalty Points';
+            DataClassification = CustomerContent;
+        }
+    }
+}
+```
+
+This code extends the standard Customer table by adding a new field called "Loyalty Points".
+
+### Event Subscribers
+
+AL uses event subscribers to extend existing functionality. Here's an example:
+
+```al
+codeunit 50100 MySubscribers
+{
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesDoc', '', false, false)]
+    local procedure OnAfterPostSalesDoc(var SalesHeader: Record "Sales Header")
+    begin
+        // Custom code to run after a sales document is posted
+    end;
+}
+```
+
+This code subscribes to the 'OnAfterPostSalesDoc' event, allowing you to add custom logic that runs after a sales document is posted.
+
+### Development Process
+
+The typical AL development process involves:
+
+1. **Setting up the development environment** in Visual Studio Code.
+2. **Creating a new AL project** using the AL: Go! command.
+3. **Writing AL code** to define new objects or extend existing ones.
+4. **Compiling and testing** the code in a sandbox environment.
+5. **Debugging** using Visual Studio Code's built-in debugger.
+6. **Packaging the extension** for deployment.
+
+### Benefits of AL
+
+- **Cloud-ready:** AL is designed to work seamlessly with cloud-based deployments of Business Central.
+- **Extensibility:** AL allows for extending the base application without modifying core code, improving upgradability.
+- **Modern development experience:** Integration with Visual Studio Code provides a familiar and powerful development environment.
+- **Separation of concerns:** AL encourages a clear separation between data, business logic, and user interface.
+
+By mastering AL, developers can create powerful, customized solutions that extend the capabilities of Business Central to meet specific business needs.
